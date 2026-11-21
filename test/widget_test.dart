@@ -16,7 +16,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Проверяем наличие стартовых заметок
-    expect(find.text('Заметки: Жесты и Provider'), findsOneWidget);
+    expect(find.widgetWithText(AppBar, 'Заметки'), findsOneWidget);
     expect(find.byType(Card), findsNWidgets(3));
 
     // Вводим новую заметку в поле TextField
