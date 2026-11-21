@@ -11,9 +11,7 @@ void main() {
   );
 }
 
-/// ============================================================================
-/// 1. DOMAIN LAYER / СЛОЙ СУЩНОСТЕЙ (Чистая архитектура)
-/// ============================================================================
+/// Модель данных заметки
 class Note {
   final String id;
   String text;
@@ -28,14 +26,12 @@ class Note {
   }) : createdAt = createdAt ?? DateTime.now();
 }
 
-/// ============================================================================
-/// 2. STATE MANAGEMENT LAYER / СЛОЙ УПРАВЛЕНИЯ СОСТОЯНИЕМ (Provider)
-/// ============================================================================
+/// Провайдер управления состоянием заметок
 class NotesProvider extends ChangeNotifier {
   final List<Note> _notes = [
     Note(
       id: 'demo-1',
-      text: 'Добро пожаловать в Практическую работу №3!\nЗдесь реализована обработка жестов и State Management.',
+      text: 'Добро пожаловать в заметки!\nЗдесь реализована обработка жестов и State Management.',
       isImportant: true,
       createdAt: DateTime.now().subtract(const Duration(minutes: 15)),
     ),
@@ -91,16 +87,13 @@ class NotesProvider extends ChangeNotifier {
   }
 }
 
-/// ============================================================================
-/// 3. PRESENTATION LAYER / СЛОЙ ПРЕДСТАВЛЕНИЯ (UI)
-/// ============================================================================
 class NotesApp extends StatelessWidget {
   const NotesApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Заметки — Жесты и Provider',
+      title: 'Заметки',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
@@ -135,7 +128,7 @@ class _NotesScreenState extends State<NotesScreen> {
     _inputController.clear();
   }
 
-  /// Просмотр полного текста по обычному нажатию (onTap) — Требование на оценку 4
+  /// Просмотр полного текста заметки (onTap)
   void _showViewDialog(BuildContext context, Note note) {
     showDialog(
       context: context,
@@ -212,7 +205,7 @@ class _NotesScreenState extends State<NotesScreen> {
     );
   }
 
-  /// Редактирование по долгому нажатию (onLongPress) — Требование на оценку 5
+  /// Редактирование заметки (onLongPress)
   void _showEditDialog(BuildContext context, Note note) {
     final editController = TextEditingController(text: note.text);
 
@@ -277,7 +270,7 @@ class _NotesScreenState extends State<NotesScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Заметки: Жесты и Provider'),
+        title: const Text('Заметки'),
         centerTitle: true,
         actions: [
           IconButton(
@@ -294,7 +287,7 @@ class _NotesScreenState extends State<NotesScreen> {
       ),
       body: Column(
         children: [
-          // Панель ввода новой заметки
+          // Панель добавления заметки
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
@@ -313,7 +306,7 @@ class _NotesScreenState extends State<NotesScreen> {
                   child: TextField(
                     controller: _inputController,
                     decoration: const InputDecoration(
-                      hintText: 'Введите новую заметку...',
+                      hintText: 'Введите текст заметки...',
                       prefixIcon: Icon(Icons.note_add_outlined),
                       border: OutlineInputBorder(),
                       contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -334,7 +327,7 @@ class _NotesScreenState extends State<NotesScreen> {
             ),
           ),
 
-          // Информационная плашка-подсказка по жестам
+          // Подсказка по жестам
           Container(
             width: double.infinity,
             margin: const EdgeInsets.fromLTRB(16, 12, 16, 4),
@@ -359,7 +352,7 @@ class _NotesScreenState extends State<NotesScreen> {
             ),
           ),
 
-          // Список заметок с поддержкой жестов и свайпов
+          // Список заметок
           Expanded(
             child: notes.isEmpty
                 ? const Center(
@@ -378,7 +371,7 @@ class _NotesScreenState extends State<NotesScreen> {
                         key: ValueKey(note.id),
                         direction: DismissDirection.horizontal,
 
-                        // Свайп вправо: восстанавливает обычный статус заметки (Оценка 5)
+                        // Свайп вправо: снять важность
                         background: Container(
                           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -402,7 +395,7 @@ class _NotesScreenState extends State<NotesScreen> {
                           ),
                         ),
 
-                        // Свайп влево: удаляет заметку из списка (Оценка 5)
+                        // Свайп влево: удалить заметку
                         secondaryBackground: Container(
                           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -427,10 +420,8 @@ class _NotesScreenState extends State<NotesScreen> {
                           ),
                         ),
 
-                        // Логика подтверждения свайпа
                         confirmDismiss: (direction) async {
                           if (direction == DismissDirection.startToEnd) {
-                            // Свайп вправо: меняем статус важности и НЕ удаляем карточку
                             if (note.isImportant) {
                               context.read<NotesProvider>().setImportant(note.id, false);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -447,9 +438,8 @@ class _NotesScreenState extends State<NotesScreen> {
                                 ),
                               );
                             }
-                            return false; // Отпружинивает обратно
+                            return false;
                           } else if (direction == DismissDirection.endToStart) {
-                            // Свайп влево: подтверждаем удаление
                             return true;
                           }
                           return false;
@@ -467,7 +457,6 @@ class _NotesScreenState extends State<NotesScreen> {
                           }
                         },
 
-                        // Сама карточка с GestureDetector (Оценка 4 и 5)
                         child: Card(
                           elevation: note.isImportant ? 4.0 : 1.0,
                           color: note.isImportant ? const Color(0xFFFFF8E1) : Colors.white,
@@ -482,13 +471,8 @@ class _NotesScreenState extends State<NotesScreen> {
                           ),
                           margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
                           child: GestureDetector(
-                            // HitTestBehavior.opaque гарантирует отклик всей области карточки
                             behavior: HitTestBehavior.opaque,
-
-                            // Обычное нажатие (onTap) — открывает полный просмотр (Оценка 4)
                             onTap: () => _showViewDialog(context, note),
-
-                            // Двойное нажатие (onDoubleTap) — отмечает как важную ⭐️ (Оценка 4)
                             onDoubleTap: () {
                               context.read<NotesProvider>().setImportant(note.id, true);
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -498,15 +482,11 @@ class _NotesScreenState extends State<NotesScreen> {
                                 ),
                               );
                             },
-
-                            // Долгое нажатие (onLongPress) — редактирование заметки (Оценка 5)
                             onLongPress: () => _showEditDialog(context, note),
-
                             child: Padding(
                               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
                               child: Row(
                                 children: [
-                                  // Индикатор порядкового номера или звезды
                                   CircleAvatar(
                                     radius: 18,
                                     backgroundColor: note.isImportant
@@ -524,8 +504,6 @@ class _NotesScreenState extends State<NotesScreen> {
                                           ),
                                   ),
                                   const SizedBox(width: 12),
-
-                                  // Текст заметки и метаданные
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -568,8 +546,6 @@ class _NotesScreenState extends State<NotesScreen> {
                                       ],
                                     ),
                                   ),
-
-                                  // Иконки быстрых действий в конце карточки
                                   Row(
                                     mainAxisSize: MainAxisSize.min,
                                     children: [
@@ -580,7 +556,7 @@ class _NotesScreenState extends State<NotesScreen> {
                                         ),
                                       IconButton(
                                         icon: const Icon(Icons.edit_outlined, size: 20),
-                                        tooltip: 'Редактировать (долгое нажатие)',
+                                        tooltip: 'Редактировать',
                                         onPressed: () => _showEditDialog(context, note),
                                       ),
                                     ],
