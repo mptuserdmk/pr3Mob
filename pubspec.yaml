@@ -1,0 +1,20 @@
+name: notes_app_gestures
+description: "Практическая работа №3: Обработка жестов (GestureDetector, Dismissible) и State Management (Provider)"
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  provider: ^6.1.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
