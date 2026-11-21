@@ -47,3 +47,9 @@ app.*.map.json
 
 # Windows artifacts
 windows/flutter/ephemeral/
+
+# Lecture materials
+*.docx
+Bloc Cubit.md
+Provider.md
+Архитектура Flutter-приложений*.md
