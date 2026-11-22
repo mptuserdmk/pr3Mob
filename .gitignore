@@ -48,6 +48,10 @@ app.*.map.json
 # Windows artifacts
 windows/flutter/ephemeral/
 
+# Raw video recordings & transcripts
+*.MOV
+2026-*.txt
+
 # Lecture materials
 *.docx
 Bloc Cubit.md

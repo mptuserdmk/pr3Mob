@@ -42,25 +42,39 @@
 
 ## 3. Демонстрация работы приложения (Видео и Скриншоты)
 
-> [!NOTE]
-> Сюда прикрепляется видеозапись работы приложения и демонстрационные скриншоты.
+### 📹 Видеозапись работы приложения:
+> Видеозапись с приятной фоновой музыкой (Lo-Fi Chill), демонстрирующая обработку всех жестов:
 
-### Видеозапись:
-- `screenshots/demo_video.mp4` *(будет прикреплена)*
+- 🎬 **[Смотреть / скачать видеодемонстрацию (demo_video.mp4)](./screenshots/demo_video.mp4)**
 
-### Скриншоты:
-1. **Главный экран списка заметок (обычные и важные ⭐)**:
-   `screenshots/01_notes_list.png`
-2. **Просмотр полного текста заметки (onTap)**:
-   `screenshots/02_tap_view_dialog.png`
-3. **Отметка важности двойным нажатием (onDoubleTap)**:
-   `screenshots/03_double_tap_star.png`
-4. **Редактирование по долгому нажатию (onLongPress)**:
-   `screenshots/04_long_press_edit.png`
-5. **Свайп влево — удаление заметки**:
-   `screenshots/05_swipe_left_delete.png`
-6. **Свайп вправо — сброс статуса важности**:
-   `screenshots/06_swipe_right_reset.png`
+<div align="center">
+  <img src="./screenshots/demo.gif" alt="Анимированная демонстрация работы приложения" width="300"/>
+  <p><i>Живая демонстрация жестов в приложении (Тап, Двойной тап, Долгое нажатие, Свайпы)</i></p>
+</div>
+
+### 📸 Ключевые скриншоты сценариев:
+<table align="center">
+  <tr>
+    <td align="center"><b>1. Список заметок</b></td>
+    <td align="center"><b>2. Просмотр по тапу (onTap)</b></td>
+    <td align="center"><b>3. Важность (onDoubleTap ⭐)</b></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/01_notes_list.png" width="220"/></td>
+    <td><img src="./screenshots/02_tap_view_dialog.png" width="220"/></td>
+    <td><img src="./screenshots/03_double_tap_star.png" width="220"/></td>
+  </tr>
+  <tr>
+    <td align="center"><b>4. Редактирование (onLongPress)</b></td>
+    <td align="center"><b>5. Свайп влево (Удаление)</b></td>
+    <td align="center"><b>6. Свайп вправо (Сброс ⭐)</b></td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/04_long_press_edit.png" width="220"/></td>
+    <td><img src="./screenshots/05_swipe_left_delete.png" width="220"/></td>
+    <td><img src="./screenshots/06_swipe_right_reset.png" width="220"/></td>
+  </tr>
+</table>
 
 ---
 
